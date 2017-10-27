@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import {  } from '@angular/forms';
+import { FormGroup, FormControl } from '@angular/forms';
 
 @Component({
   selector: 'info-form',
@@ -14,7 +14,17 @@ export class InfoFormComponent implements OnInit {
     "German",
   ];
 
+  myform: FormGroup;
+
   ngOnInit() {
-    
+    this.myform = new FormGroup({
+      name: new FormGroup({ 
+        firstName: new FormControl(),
+        lastName: new FormControl(),
+      }),
+      email: new FormControl(),
+      password: new FormControl(),
+      language: new FormControl(),
+    });
   }
 }
