@@ -1,6 +1,10 @@
-<form novalidate [formGroup]="myform">
+<form novalidate 
+[formGroup]="myform"
+(ngSubmit)="onSubmit()">
   <fieldset formGroupName="name">
-    <div class="form-group">
+    <div class="form-group"
+    [ngClass]="{'has-error': firstName.errors && (firstName.dirty || firstName.touched ),
+  'has-success': firstName.valid && firstName.dirty}">
       <label>First Name</label>
       <input type="text" 
       class="form-control"
@@ -8,7 +12,9 @@
       required>
     </div>
 
-    <div class="form-group">
+    <div class="form-group"
+    [ngClass]="{'has-error': lastName.errors && (lastName.dirty || lastName.touched),
+  'has-success': lastName.valid && lastName.dirty}">
       <label>Last Name</label>
       <input type="text" 
       class="form-control"
@@ -17,7 +23,9 @@
     </div>
   </fieldset>
 
-  <div class="form-group">
+  <div class="form-group"
+  [ngClass]="{'has-error': email.errors && (email.dirty || email.touched),
+'has-success': email.valid && email.dirty}">
     <label>Email</label>
     <input type="email" 
     class="form-control"
@@ -25,12 +33,19 @@
     required>
   </div>
 
-  <div class="form-group">
+  <div class="form-group"
+  [ngClass]="{'has-error': password.errors && (password.dirty || password.touched),
+'has-success': password.valid && password.dirty}">
     <label>Password</label>
     <input type="password" 
     class="form-control"
     formControlName="password"
     required>
+    <div class="form control feedback"
+    *ngIf="password.errors && (password.dirty || password.touched)">
+      <p *ngIf="password.errors.required">Password is required</p>
+      <p *ngIf="password.errors.minlength">Password must be at least {{ password.errors.minlength.requiredLength }} characters long</p>
+    </div>
   </div>
 
   <div class="form-group">
@@ -45,7 +60,7 @@
     </select>
   </div>
 
-  <button class="btn btn-primary">Submit</button>
+  <button type="submit" class="btn btn-primary">Submit</button>
 </form>
 
 <br>
